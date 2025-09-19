@@ -1,27 +1,7 @@
 import { Counter } from "./counter";
-import { consumeOnClickCbs, render } from "./widget";
-
-async function getSingleCharacter(timeout: number): Promise<string | null> {
-    return new Promise((resolve) => {
-        const timer = setTimeout(() => {
-            resolve(null); // Resolve with null if timeout occurs
-        }, timeout);
-
-        // Set up the read listener
-        resolve(prompt(""));
-        // read({
-        //     onData: (data: string) => {
-        //         clearTimeout(timer); // Clear the timeout if data is received
-        //         resolve(data.charAt(0)); // Resolve with the first character
-        //     },
-        //     onError: (error: Error) => {
-        //         clearTimeout(timer);
-        //         console.error('Error reading input:', error);
-        //         resolve(null);
-        //     }
-        // });
-    });
-}
+import { render } from "./widget";
+import { consumeOnKeypressCbs, type KeyEvent } from "./hooks";
+import readline from "node:readline";
 
 function sleep(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -29,14 +9,21 @@ function sleep(ms: number): Promise<void> {
 
 (async () => {
     process.stdin.setRawMode(true);
-    process.stdin.on("data", (e) => {
-        const input = e[0]!;
-    });
+    process.stdin.resume();
+    process.stdin.setEncoding("utf-8");
+    readline.emitKeypressEvents(process.stdin);
     const widgetTree = new Counter(0);
-    while (true) {
+    const elementTree = widgetTree.createElement();
+    render(elementTree.draw());
+    process.stdin.on("keypress", (str: string, event: KeyEvent) => {
+        if (event.sequence === "\u0003") {
+            console.clear();
+            process.stdin.setRawMode(false);
+            process.exit(0);
+        }
+        consumeOnKeypressCbs(event);
         const elementTree = widgetTree.createElement();
+
         render(elementTree.draw());
-        const input = prompt("");
-        consumeOnClickCbs(input![0]!);
-    }
+    });
 })();
