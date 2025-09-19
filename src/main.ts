@@ -1,7 +1,7 @@
-import { Counter } from "./counter";
-import { render } from "./widget";
+import { render } from "./frame";
 import { consumeOnKeypressCbs, type KeyEvent } from "./hooks";
 import readline from "node:readline";
+import { Text } from "./widgets/text";
 
 function sleep(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -12,7 +12,7 @@ function sleep(ms: number): Promise<void> {
     process.stdin.resume();
     process.stdin.setEncoding("utf-8");
     readline.emitKeypressEvents(process.stdin);
-    const widgetTree = new Counter(0);
+    const widgetTree = new Text("你好àäOops");
     var elementTree = widgetTree.createElement();
     render(elementTree.draw());
     process.stdin.on("keypress", (str: string, event: KeyEvent) => {

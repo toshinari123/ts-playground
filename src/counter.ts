@@ -1,5 +1,5 @@
 import { type Widget, type Element } from "./widget";
-import { SingleChar } from "./single_char";
+import { SingleChar } from "./widgets/single_char";
 import { onKeypress } from "./hooks";
 
 export class Counter implements Widget {

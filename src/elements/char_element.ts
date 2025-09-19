@@ -1,5 +1,5 @@
-import type { Frame } from "./frame";
-import type { Element } from "./widget";
+import type { Frame } from "../frame";
+import type { Element } from "../widget";
 
 export class CharElement implements Element {
     c: string = " ";

@@ -1,20 +1,13 @@
 import type { Frame } from "./frame.ts";
 
-export interface Element {
-    draw(): Frame;
+export abstract class Element {
+    abstract draw(): Frame;
 }
 
-export function render(frame: Frame) {
-    console.clear();
-    for (const row of frame) {
-        for (const col of row) {
-            process.stdout.write(col);
-        }
-        process.stdout.write("\n");
+export abstract class Widget {
+    /** @virtual */
+    createElement(): Element {
+        return this.build().createElement();
     }
-}
-
-export interface Widget {
-    createElement(): Element;
-    build(): Widget;
+    abstract build(): Widget;
 }
