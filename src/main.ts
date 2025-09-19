@@ -13,7 +13,7 @@ function sleep(ms: number): Promise<void> {
     process.stdin.setEncoding("utf-8");
     readline.emitKeypressEvents(process.stdin);
     const widgetTree = new Counter(0);
-    const elementTree = widgetTree.createElement();
+    var elementTree = widgetTree.createElement();
     render(elementTree.draw());
     process.stdin.on("keypress", (str: string, event: KeyEvent) => {
         if (event.sequence === "\u0003") {
@@ -22,10 +22,10 @@ function sleep(ms: number): Promise<void> {
             process.exit(0);
         }
         consumeOnKeypressCbs(event);
+        elementTree = widgetTree.createElement();
     });
 
     while (true) {
-        const elementTree = widgetTree.createElement();
         render(elementTree.draw());
         await sleep(10);
     }
