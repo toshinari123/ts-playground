@@ -8,7 +8,6 @@ export class Counter implements Widget {
     constructor(i: number) {
         this.i = i;
         onKeypress((event) => {
-            console.log("running");
             switch (event.sequence) {
                 case "+":
                     this.i += 1;

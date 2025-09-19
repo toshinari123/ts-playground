@@ -22,8 +22,11 @@ function sleep(ms: number): Promise<void> {
             process.exit(0);
         }
         consumeOnKeypressCbs(event);
-        const elementTree = widgetTree.createElement();
-
-        render(elementTree.draw());
     });
+
+    while (true) {
+        const elementTree = widgetTree.createElement();
+        render(elementTree.draw());
+        await sleep(10);
+    }
 })();
