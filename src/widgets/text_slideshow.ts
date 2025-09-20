@@ -1,7 +1,7 @@
-import { onKeypress } from "./hooks";
-import { LEFT, RIGHT } from "./utils/key_sequences";
-import { Widget } from "./widget";
-import { Text } from "./widgets/text";
+import { onKeypress } from "../hooks";
+import { LEFT, RIGHT } from "../utils/key_sequences";
+import { Widget } from "../widget";
+import { Text } from "./text";
 
 export class TextSlideshow extends Widget {
     i: number = 0;

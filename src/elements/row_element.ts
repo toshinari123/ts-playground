@@ -1,5 +1,5 @@
 import { Element } from "../widget";
-import type { Frame } from "../frame";
+import { rect, type Frame } from "../frame";
 import { ensureSameLength, range } from "../utils/array_utils";
 
 export class RowElement implements Element {
@@ -10,10 +10,7 @@ export class RowElement implements Element {
     }
 
     draw(): Frame {
-        const childrenFrames = ensureSameLength(
-            this.children.map((child) => child.draw()),
-            []
-        ).map((frame) => ensureSameLength(frame, " "));
+        const childrenFrames = rect(this.children.map(child => child.draw()));
         return range(childrenFrames[0]?.length ?? 0).map((i) =>
             childrenFrames.map((frame) => frame[i]!).flat()
         );

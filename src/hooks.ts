@@ -6,7 +6,7 @@ export type KeyEvent = {
     shift: boolean;
 };
 
-var onKeypressCbs: ((event: KeyEvent) => void)[] = [];
+let onKeypressCbs: ((event: KeyEvent) => void)[] = [];
 export function consumeOnKeypressCbs(event: KeyEvent) {
     onKeypressCbs.forEach((cb) => cb(event));
 }

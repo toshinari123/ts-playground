@@ -1,6 +1,6 @@
-import { type Widget, type Element } from "./widget";
-import { SingleChar } from "./widgets/single_char";
-import { onKeypress } from "./hooks";
+import { type Widget, type Element } from "../widget";
+import { onKeypress } from "../hooks";
+import { Text } from "./text";
 
 export class Counter implements Widget {
     i: number = 0;
@@ -24,6 +24,6 @@ export class Counter implements Widget {
     }
 
     build(): Widget {
-        return new SingleChar(this.i.toString());
+        return new Text(this.i.toString());
     }
 }

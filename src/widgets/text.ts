@@ -1,4 +1,5 @@
 import { Widget } from "../widget";
+import { Column } from "./column";
 import { Row } from "./row";
 import { SingleChar } from "./single_char";
 
@@ -11,6 +12,13 @@ export class Text extends Widget {
     }
 
     build(): Widget {
-        return new Row([...this.s].map((char) => new SingleChar(char)));
+        return new Column(
+            this.s
+                .split("\n")
+                .map(
+                    (line) =>
+                        new Row([...line].map((char) => new SingleChar(char)))
+                )
+        );
     }
 }

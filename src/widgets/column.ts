@@ -1,8 +1,8 @@
-import { Element, Widget } from "../widget";
-import { RowElement } from "../elements/row_element";
+import { ColumnElement } from "../elements/column_element";
 import { unimplemented } from "../utils/todo";
+import { Element, Widget } from "../widget";
 
-export class Row extends Widget {
+export class Column extends Widget {
     children: Widget[] = [];
 
     constructor(children: Widget[]) {
@@ -11,7 +11,7 @@ export class Row extends Widget {
     }
 
     override createElement(): Element {
-        return new RowElement(
+        return new ColumnElement(
             this.children.map((child) => child.createElement())
         );
     }
