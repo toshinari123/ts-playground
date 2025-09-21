@@ -2,7 +2,7 @@ import { ensureSameLength, range } from "./utils/array_utils";
 
 export type Frame = string[][];
 
-export function render(frame: Frame) {
+export function printFrame(frame: Frame) {
     console.clear();
     for (const row of frame) {
         for (const col of row) {
