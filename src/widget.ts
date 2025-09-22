@@ -5,7 +5,6 @@ export abstract class Element {
 }
 
 export abstract class Widget {
-    /** @virtual */
     createElement(): Element {
         return this.build().createElement();
     }

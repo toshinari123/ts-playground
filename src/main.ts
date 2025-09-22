@@ -1,9 +1,23 @@
-import { LoadString } from "./widgets/load_number";
-import { render, setup } from "./render";
+import { render } from "./render";
 import { AnimatedChar } from "./widgets/animated_char";
-import { MultiAnimatedChar } from "./widgets/multi_animated_char";
+import { Column } from "./widgets/column";
+import { Counter } from "./widgets/counter";
+import { LoadString } from "./widgets/load_number";
+import { TextSlideshow } from "./widgets/text_slideshow";
 
 (async () => {
-    setup();
-    await render(new AnimatedChar(40));
+    await render(new Column([
+        new AnimatedChar(40),
+        new AnimatedChar(30),
+        new Counter(0),
+        new TextSlideshow({
+            i: 0,
+            strings: [
+                "What",
+                "have",
+                 "you",
+                 "done"
+            ]
+        })
+    ]));
 })();

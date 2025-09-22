@@ -1,4 +1,4 @@
-import { teardown } from "./render";
+import { exit } from "./render";
 
 export type KeyEvent = {
     sequence: string;
@@ -29,7 +29,7 @@ export function onKeypress(cb: (event: KeyEvent) => void) {
 
 process.stdin.on("keypress", (str: string, event: KeyEvent) => {
     if (event.sequence === "\u0003") {
-        teardown();
+        exit();
     }
     // console.log(event);
     consumeOnKeypressCbs(event);

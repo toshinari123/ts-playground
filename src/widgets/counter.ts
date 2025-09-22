@@ -1,11 +1,12 @@
-import { type Widget, type Element } from "../widget";
+import { Widget } from "../widget";
 import { onKeypress } from "../hooks";
 import { Text } from "./text";
 
-export class Counter implements Widget {
+export class Counter extends Widget {
     i: number = 0;
 
     constructor(i: number) {
+        super();
         this.i = i;
         onKeypress((event) => {
             switch (event.sequence) {
@@ -17,10 +18,6 @@ export class Counter implements Widget {
                     break;
             }
         });
-    }
-
-    createElement(): Element {
-        return this.build().createElement();
     }
 
     build(): Widget {

@@ -1,5 +1,6 @@
 import { Element, Widget } from "../widget";
 import { CharElement } from "../elements/char_element";
+import { unimplemented } from "../utils/todo";
 
 export class SingleChar extends Widget {
     c: string = " ";
@@ -16,6 +17,6 @@ export class SingleChar extends Widget {
     }
 
     build(): Widget {
-        return null as any;
+        return unimplemented();
     }
 }

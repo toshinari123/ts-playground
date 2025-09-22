@@ -22,7 +22,7 @@ export class MultiAnimatedChar extends Widget {
         })
     }
 
-    override build(): Widget {
+    build(): Widget {
         return new Column([
             ...range(this.i).map(i => new AnimatedChar(30)),
             new Text(this.i.toString())

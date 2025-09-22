@@ -27,7 +27,7 @@ export class TextSlideshow extends Widget {
         });
     }
 
-    override build(): Widget {
+    build(): Widget {
         return new Text(this.strings.at(this.i) ?? "");
     }
 }

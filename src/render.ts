@@ -4,20 +4,25 @@ import { shouldRebuild, resetShouldRebuild } from "./hooks";
 import type { Widget } from "./widget";
 import readline from "node:readline";
 
-export function setup() {
+function setup() {
     process.stdin.setRawMode(true);
     process.stdin.resume();
     process.stdin.setEncoding("utf-8");
     readline.emitKeypressEvents(process.stdin);
 }
 
-export function teardown() {
+let shouldExit = false;
+export const exit = () => {
+    shouldExit = true;
+}
+
+function teardown() {
     console.clear();
     process.stdin.setRawMode(false);
-    process.exit(0);
 }
 
 export async function render(widget: Widget) {
+    setup();
     let elementTree = widget.createElement();
     printFrame(elementTree.draw());
 
@@ -27,6 +32,11 @@ export async function render(widget: Widget) {
             resetShouldRebuild();
             printFrame(elementTree.draw());
         }
+        if (shouldExit) {
+            break;
+        }
         await sleep(10);
     }
+    teardown();
+    process.exit(0);
 }
