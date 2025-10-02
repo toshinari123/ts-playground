@@ -14,7 +14,7 @@ export class AnimatedChar extends Widget {
         this.width = width;
         loop(async () => {
             await sleep(15);
-            this.elapsedTicks += 1;
+            this.setState(() => this.elapsedTicks += 1);
         });
     }
 
@@ -24,8 +24,8 @@ export class AnimatedChar extends Widget {
         const index = Math.max(
             0,
             Math.min(
-                Math.round((c * (this.width - 1) + this.width) / 2),
-                this.width
+                Math.round(c * (this.width / 2) + this.width / 2),
+                this.width - 1
             )
         );
         const s = range(this.width).map((i) => (i === index ? "⚪️" : " "));

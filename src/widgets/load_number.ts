@@ -1,5 +1,4 @@
 import { sleep } from "bun";
-import { rebuildAfter } from "../hooks";
 import { Widget } from "../widget";
 import { Text } from "./text";
 
@@ -8,10 +7,10 @@ export class LoadString extends Widget {
 
     constructor() {
         super();
-        rebuildAfter(async () => {
+        (async () => {
             await sleep(2000);
-            this.s = "Done!";
-        });
+            this.setState(() => this.s = "Done!");
+        })();
     }
 
     build(): Widget {

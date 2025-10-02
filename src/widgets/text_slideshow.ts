@@ -15,12 +15,12 @@ export class TextSlideshow extends Widget {
             switch (event.sequence) {
                 case LEFT:
                     if (this.i > 0) {
-                        this.i -= 1;
+                        this.setState(() => (this.i -= 1));
                     }
                     break;
                 case RIGHT:
                     if (this.i < this.strings.length - 1) {
-                        this.i += 1;
+                        this.setState(() => (this.i += 1));
                     }
                     break;
             }

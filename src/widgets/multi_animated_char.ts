@@ -13,20 +13,21 @@ export class MultiAnimatedChar extends Widget {
         onKeypress((event) => {
             switch (event.sequence) {
                 case "+":
-                    this.i += 1;
+                    this.setState(() => this.i += 1);
                     break;
                 case "-":
-                    this.i -= 1;
+                    if (this.i > 0) {
+                        this.setState(() => this.i -= 1);
+                    }
                     break;
             }
-        })
+        });
     }
 
     build(): Widget {
         return new Column([
-            ...range(this.i).map(i => new AnimatedChar(30)),
-            new Text(this.i.toString())
+            ...range(this.i).map((i) => new AnimatedChar(30)),
+            new Text(this.i.toString()),
         ]);
-        // TODO: does not work. Animations will reset on every rebuild due to this build() creating new AnimatedChars
     }
 }

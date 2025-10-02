@@ -1,6 +1,5 @@
 import { sleep } from "bun";
 import { printFrame } from "./frame";
-import { shouldRebuild, resetShouldRebuild } from "./hooks";
 import type { Widget } from "./widget";
 import readline from "node:readline";
 
@@ -14,7 +13,7 @@ function setup() {
 let shouldExit = false;
 export const exit = () => {
     shouldExit = true;
-}
+};
 
 function teardown() {
     console.clear();
@@ -27,16 +26,14 @@ export async function render(widget: Widget) {
     printFrame(elementTree.draw());
 
     while (true) {
-        if (shouldRebuild()) {
-            elementTree = widget.createElement();
-            resetShouldRebuild();
-            printFrame(elementTree.draw());
-        }
+        elementTree = widget.createElement();
+        printFrame(elementTree.draw());
         if (shouldExit) {
             break;
         }
         await sleep(10);
     }
+
     teardown();
     process.exit(0);
 }

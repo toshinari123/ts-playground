@@ -5,8 +5,23 @@ export abstract class Element {
 }
 
 export abstract class Widget {
+    prev: Widget | null = null;
+    needsRebuild: boolean = true;
+
     createElement(): Element {
-        return this.build().createElement();
+        return this._build().createElement();
+    }
+    setState(f: () => void) {
+        f();
+        this.needsRebuild = true;
+    }
+    _build(): Widget {
+        if (!this.needsRebuild && this.prev) {
+            return this.prev;
+        }
+        this.needsRebuild = false;
+        this.prev = this.build();
+        return this.prev;
     }
     abstract build(): Widget;
 }
