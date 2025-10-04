@@ -8,30 +8,31 @@ export class TextField extends Widget {
     constructor({ placeholder = "" }: { placeholder?: string }) {
         super();
         this.buffer = placeholder;
-        onKeypress((event) =>
-            this.setState(() => {
-                switch (event.name) {
-                    case "backspace":
-                        this.buffer = this.buffer.substring(
-                            0,
-                            this.buffer.length - 1
-                        );
-                        break;
+        onKeypress((event) => {
+            switch (event.name) {
+                case "backspace":
+                    this.setState(
+                        () =>
+                            (this.buffer = this.buffer.substring(
+                                0,
+                                this.buffer.length - 1
+                            ))
+                    );
+                    break;
 
-                    case "space":
-                        this.buffer += " ";
-                        break;
+                case "space":
+                    this.setState(() => (this.buffer += " "));
+                    break;
 
-                    case "return":
-                        this.buffer += "\n";
-                        break;
+                case "return":
+                    this.setState(() => (this.buffer += "\n"));
+                    break;
 
-                    default:
-                        this.buffer += event.sequence ?? "";
-                        break;
-                }
-            })
-        );
+                default:
+                    this.setState(() => (this.buffer += event.sequence ?? ""));
+                    break;
+            }
+        });
     }
 
     build(): Widget {

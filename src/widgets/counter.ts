@@ -8,18 +8,16 @@ export class Counter extends Widget {
     constructor(i: number) {
         super();
         this.i = i;
-        onKeypress((event) =>
-            this.setState(() => {
-                switch (event.sequence) {
-                    case "+":
-                        this.i += 1;
-                        break;
-                    case "-":
-                        this.i -= 1;
-                        break;
-                }
-            })
-        );
+        onKeypress((event) => {
+            switch (event.sequence) {
+                case "+":
+                    this.setState(() => (this.i += 1));
+                    break;
+                case "-":
+                    this.setState(() => (this.i -= 1));
+                    break;
+            }
+        });
     }
 
     build(): Widget {

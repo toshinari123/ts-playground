@@ -6,7 +6,7 @@ import { Text } from "./text";
 import { Column } from "./column";
 
 export class AnimatedChar extends Widget {
-    elapsedTicks: number = -90;
+    elapsedTicks: number = 0;
     width: number = 10;
 
     constructor(width: number) {
@@ -19,8 +19,7 @@ export class AnimatedChar extends Widget {
     }
 
     build(): Widget {
-        const constrainedTicks = this.elapsedTicks;
-        const c = Math.sin((constrainedTicks * Math.PI) / 180);
+        const c = Math.sin(((this.elapsedTicks - 90) * Math.PI) / 180);
         const index = Math.max(
             0,
             Math.min(
