@@ -1,4 +1,6 @@
 import type { Frame } from "./frame.ts";
+import type { KeyEvent } from "./hooks.ts";
+import { onKeypress } from "./hooks";
 
 export abstract class Element {
     abstract draw(): Frame;
@@ -7,6 +9,12 @@ export abstract class Element {
 export abstract class Widget {
     prev: Widget | null = null;
     needsRebuild: boolean = true;
+
+    children: Widget[] = [];
+    parent: {widget: Widget, index: number} | null = null;
+
+    focusable: boolean = false;
+    keypressCb: ((event: KeyEvent) => void) | null = null;
 
     createElement(): Element {
         return this._build().createElement();
@@ -24,4 +32,12 @@ export abstract class Widget {
         return this.prev;
     }
     abstract build(): Widget;
+
+    onKeypress(cb: (event: KeyEvent) => void) {
+        if (this.focusable) {
+            this.keypressCb = cb;
+        } else { 
+            onKeypress(cb);
+        }
+    }
 }

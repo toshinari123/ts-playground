@@ -1,4 +1,4 @@
-import { onKeypress } from "../hooks";
+//import { onKeypress } from "../hooks";
 import { LEFT, RIGHT } from "../utils/key_sequences";
 import { Widget } from "../widget";
 import { Text } from "./text";
@@ -6,12 +6,13 @@ import { Text } from "./text";
 export class TextSlideshow extends Widget {
     i: number = 0;
     strings: string[] = [""];
+    override focusable = true;
 
     constructor({ i = 0, strings = [""] }: { i?: number; strings?: string[] }) {
         super();
         this.i = i;
         this.strings = strings;
-        onKeypress((event) => {
+        this.onKeypress((event) => {
             switch (event.sequence) {
                 case LEFT:
                     if (this.i > 0) {
